@@ -3,10 +3,10 @@
 var fs = require('fs');
 
 exports.graphics = {
-    minifyPng: function (test) {
+    psdWithTransparency: function (test) {
         test.expect(1);
 
-        test.ok(true, 'should minify PNG images');
+        test.ok(fs.existsSync(".tmp/psd-with-transparency@1x.png"), 'file should exists psd-with-transparency@1x.png');
 
         test.done();
     }

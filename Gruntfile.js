@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         clean: {
-            test: ['tmp']
+            test: ['.tmp']
         },
         graphics: {
             assets: {
@@ -23,9 +23,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
     grunt.registerTask('test', [
-        'graphics',
-        'nodeunit',
-        'clean'
+        'graphics:assets',
+        'nodeunit'
     ]);
 
     grunt.registerTask('default', ['test', 'build-contrib']);

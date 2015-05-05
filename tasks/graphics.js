@@ -11,7 +11,7 @@ module.exports = function(grunt) {
             },
             end: function () {
                 queue--;
-                if (queue === 0) {
+                if (queue <= 0) {
                     done();
                 }
             }
@@ -19,5 +19,9 @@ module.exports = function(grunt) {
 
         var GraphicsController = require('./../src/graphics-controller');
         new GraphicsController(task, process, grunt).process(grunt.config.get('graphics')[this.args[0]].src);
+
+        if (queue <= 0) {
+            return done();
+        }
     });
 };

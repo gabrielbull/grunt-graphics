@@ -96,7 +96,7 @@ Gimp.prototype._createCommand = function (command, args) {
  * @return {String}
  */
 Gimp.prototype._getShellScript = function (command) {
-    return path.join(__dirname, '..', 'bin', command);
+    return path.join(__dirname, '..', '..', 'bin', command);
 };
 
 /* global module:false */

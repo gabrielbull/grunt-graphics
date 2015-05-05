@@ -62,6 +62,7 @@ ConfigParser.prototype.parseItem = function (item, name) {
     var files = this.parseItemFiles(item.files);
     var src;
     var dest;
+
     for (var i = 0, len = files.length; i < len; ++i) {
         src = this.parseFilePath(files[i].src);
         dest = this.parseFilePath(files[i].dest);

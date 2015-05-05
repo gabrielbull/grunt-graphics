@@ -1,43 +1,15 @@
-/*
- * grunt-contrib-imagemin
- * http://gruntjs.com/
- *
- * Copyright (c) 2015 Sindre Sorhus, contributors
- * Licensed under the MIT license.
- */
-
 'use strict';
 
 module.exports = function (grunt) {
-    require('time-grunt')(grunt);
+    //require('time-grunt')(grunt);
 
     grunt.initConfig({
-        jshint: {
-            all: [
-                'Gruntfile.js',
-                'tasks/*.js',
-                '<%= nodeunit.tests %>'
-            ],
-            options: {
-                jshintrc: '.jshintrc'
-            }
-        },
         clean: {
             test: ['tmp']
         },
-        imagemin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'test/fixtures',
-                    src: '**/*.{gif,GIF,jpg,JPG,png,PNG}',
-                    dest: 'tmp'
-                }]
-            },
-            rename: {
-                files: {
-                    'tmp/rename.jpg': 'test/fixtures/test.jpg'
-                }
+        graphics: {
+            assets: {
+                src: "test/fixtures/assets/**/*"
             }
         },
         nodeunit: {
@@ -48,14 +20,10 @@ module.exports = function (grunt) {
     grunt.loadTasks('tasks');
 
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
-    grunt.loadNpmTasks('grunt-contrib-internal');
 
     grunt.registerTask('test', [
-        'jshint',
-        'clean',
-        'imagemin',
+        'graphics',
         'nodeunit',
         'clean'
     ]);

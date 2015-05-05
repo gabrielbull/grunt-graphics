@@ -71,7 +71,8 @@ ConfigParser.prototype.parseItem = function (item, name) {
                 name: name,
                 src: this.parseFilePath(src),
                 dest: this.parseDestinationFilePath(this.parseFilePath(dest), item.options[j]),
-                options: item.options[j]
+                options: item.options[j],
+                processor: typeof item.processor !== 'undefined' ? item.processor : 'imagemagick'
             });
         }
     }

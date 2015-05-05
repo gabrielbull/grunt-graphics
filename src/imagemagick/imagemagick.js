@@ -23,6 +23,24 @@ var ImageMagick = function (cache, grunt) {
  * @param {Function} callback
  */
 ImageMagick.prototype.convertPsdToJpg = function (src, dest, callback) {
+    this._convert(src, dest, 'jpg', callback);
+};
+
+/**
+ * @param {String} src
+ * @param {String} dest
+ * @param {Function} callback
+ */
+ImageMagick.prototype.convertPsdToPng = function (src, dest, callback) {
+    this._convert(src, dest, 'png', callback);
+};
+/**
+ * @param {String} src
+ * @param {String} dest
+ * @param {String} format
+ * @param {Function} callback
+ */
+ImageMagick.prototype._convert = function (src, dest, format, callback) {
     var grunt = this._grunt;
 
     tmp.tmpName(function _tempNameGenerated(err, tmpfile) {
@@ -30,7 +48,7 @@ ImageMagick.prototype.convertPsdToJpg = function (src, dest, callback) {
             throw err;
         }
 
-        tmpfile = tmpfile + ".jpg";
+        tmpfile = tmpfile + "." + format;
 
         var dir = path.dirname(tmpfile);
         if (!fs.existsSync(dir)){
@@ -45,7 +63,7 @@ ImageMagick.prototype.convertPsdToJpg = function (src, dest, callback) {
         im.convert([src, tmpfile],
             function (err, stdout, stderr) {
                 if (err) {
-                    grunt.fail.warn('unknown error ImageMagick.prototype.convertPsdToJpg');
+                    grunt.fail.warn(stderr);
                     throw err;
                 }
 
@@ -55,7 +73,7 @@ ImageMagick.prototype.convertPsdToJpg = function (src, dest, callback) {
                     callback();
                 } catch (err) {
                     try {
-                        tmpfile = tmpfile.replace(/\.jpg$/, '-0.jpg');
+                        tmpfile = tmpfile.replace(/\.(jpg|png)$/, '-0.' + format);
                         fs.accessSync(tmpfile);
                         fs.renameSync(tmpfile, dest);
                         callback();

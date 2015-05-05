@@ -16,7 +16,7 @@ var Cache = function () {
  * @return {String}
  */
 Cache.prototype.cacheDir = function () {
-    return path.join(__dirname, '..', '.cache');
+    return path.join(__dirname, '..', '..', '.cache');
 };
 
 /**

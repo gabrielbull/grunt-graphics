@@ -57,7 +57,14 @@ ConversionController.prototype.convertPsdToPng = function (item, callback) {
         mkdirp.sync(dir);
     }
 
-    return this._gimp.convertPsdToPng(item.src(), convertedFile, callback);
+    if (item.processor() === 'gimp') {
+        return this._gimp.convertPsdToPng(item.src(), convertedFile, callback);
+    } else if (item.processor() === 'graphicsmagick') {
+        console.error("Graphics Magick PSD to PNG is not yet implemented");
+        //return this._graphicsMagick.convertPsdToPng(item.src(), convertedFile, callback);
+    } else {
+        return this._imageMagick.convertPsdToPng(item.src(), convertedFile, callback);
+    }
 };
 
 /**

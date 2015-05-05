@@ -14,3 +14,4 @@ compass_app_log.txt
 /npm-debug.log
 build.txt
 /.cache/*
+/.tmp/*

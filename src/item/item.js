@@ -11,6 +11,7 @@ var Item = function (item) {
     this._name = item.name;
     this._src = item.src;
     this._dest = item.dest;
+    this._processor = item.processor;
     this._options = item.options;
     this._validator = new ItemValidator(this);
     this._conversion = false;
@@ -92,6 +93,13 @@ Item.prototype.src = function () {
  */
 Item.prototype.dest = function () {
     return this._dest;
+};
+
+/**
+ * @return {String}
+ */
+Item.prototype.processor = function () {
+    return this._processor;
 };
 
 /**

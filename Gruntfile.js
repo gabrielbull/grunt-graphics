@@ -25,7 +25,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [
         'graphics:assets',
         'nodeunit',
-        'clean'
+        //'clean'
     ]);
 
     grunt.registerTask('default', ['test', 'build-contrib']);

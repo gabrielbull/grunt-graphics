@@ -88,6 +88,16 @@ Item.prototype.src = function () {
 };
 
 /**
+ * @method src
+ * @param {String} src
+ * @return {Item}
+ */
+Item.prototype.setSrc = function (src) {
+    this._src = src;
+    return this;
+};
+
+/**
  * @method dest
  * @return {String}
  */

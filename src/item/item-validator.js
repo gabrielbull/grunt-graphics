@@ -37,20 +37,17 @@ ItemValidator.prototype.isSrcNewer = function () {
         return this._newerResult[file];
     }
 
-    var convertedFile = path.join(this._cache.cacheDir(), this._item.convertedSrc());
-    if (!fs.existsSync(convertedFile)) {
+    var timestampFile = path.join(
+        path.dirname(this._item.src()),
+        "." + path.basename(this._item.src()) + ".txt"
+    );
+
+    if (!fs.existsSync(timestampFile)) {
         this._newerResult[file] = true;
         return true;
     }
 
-    var cacheFile = path.join(this._cache.cacheDir(), file);
-
-    if (!fs.existsSync(cacheFile)) {
-        this._newerResult[file] = true;
-        return true;
-    }
-
-    var previous = fs.statSync(cacheFile).mtime;
+    var previous = fs.statSync(timestampFile).mtime;
     var newer = fs.statSync(file).mtime;
     if (previous < newer) {
         this._newerResult[file] = true;

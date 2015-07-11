@@ -39,13 +39,21 @@ GraphicsMagick.prototype.resize = function (item, callback) {
             mkdirp.sync(dir);
         }
 
-        gm(item.convertedSrc())
+        var src;
+        if (item.convertedSrc()) {
+            src = item.convertedSrc();
+        } else {
+            src = item.src()
+        }
+
+        gm(src)
             .resize(
             (typeof item.options().width !== 'undefined' ? item.options().width : null),
             (typeof item.options().height !== 'undefined' ? item.options().height : null)
             )
             .write(tmpfile, function (err) {
                 if (err) {
+                    console.log(err);
                     grunt.fail.warn('unknown error GraphicsMagick.prototype.resize');
                     throw err;
                 }

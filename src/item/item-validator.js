@@ -37,10 +37,7 @@ ItemValidator.prototype.isSrcNewer = function () {
         return this._newerResult[file];
     }
 
-    var timestampFile = path.join(
-        path.dirname(this._item.src()),
-        "." + path.basename(this._item.src()) + ".txt"
-    );
+    var timestampFile = this._item.timestampFile();
 
     if (!fs.existsSync(timestampFile)) {
         this._newerResult[file] = true;

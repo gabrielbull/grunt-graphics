@@ -1,5 +1,6 @@
 'use strict';
 
+var path = require('path');
 var ItemValidator = require('./item-validator');
 var fs = require('fs');
 
@@ -147,6 +148,17 @@ Item.prototype.convertedSrc = function () {
 Item.prototype.setConvertedSrc = function (convertedSrc) {
     this._convertedSrc = convertedSrc;
     return this;
+};
+
+/**
+ * @method setConvertedSrc
+ * @return {String}
+ */
+Item.prototype.timestampFile = function () {
+    return path.join(
+        path.dirname(this.src()),
+        "." + path.basename(this.src()) + ".txt"
+    );
 };
 
 /* global module:false */

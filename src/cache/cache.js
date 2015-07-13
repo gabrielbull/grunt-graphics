@@ -21,19 +21,19 @@ Cache.prototype.cacheDir = function () {
 
 /**
  * @method updateFileTimestamp
- * @param {String} file
+ * @param {Item} item
  * @todo move me to a item-validator/item-state object
  */
-Cache.prototype.updateFileTimestamp = function (file) {
-    var cacheFile = path.join(this.cacheDir(), file);
-    var dir = path.dirname(cacheFile);
+Cache.prototype.updateFileTimestamp = function (item) {
+    var timestampFile = item.timestampFile();
+    var dir = path.dirname(timestampFile);
     if (!fs.existsSync(dir)){
         mkdirp.sync(dir);
     }
-    if (fs.existsSync(cacheFile)) {
-        fs.unlinkSync(cacheFile);
+    if (fs.existsSync(timestampFile)) {
+        fs.unlinkSync(timestampFile);
     }
-    fs.writeFileSync(cacheFile, "");
+    fs.writeFileSync(timestampFile, "");
 };
 
 /**

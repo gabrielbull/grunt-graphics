@@ -52,7 +52,7 @@ Processor.prototype.processConversion = function (itemCollection, callback) {
     var cache = this._cache;
     task.start();
     this._conversionController.convert(itemCollection[0], function () {
-        cache.updateFileTimestamp(itemCollection[0].src());
+        cache.updateFileTimestamp(itemCollection[0]);
         for (var i = 0, len = itemCollection.length; i < len; ++i) {
             root.processItem(itemCollection[i]);
         }
@@ -74,6 +74,7 @@ Processor.prototype.processItem = function (item, callback) {
     task.start();
     this._graphicsMagick.resize(item, function () {
         cache.saveItemConfig(item);
+        cache.updateFileTimestamp(item);
         grunt.log.writeln('Created ' + path.basename(item.dest()));
         if (typeof callback !== 'undefined') {
             callback();

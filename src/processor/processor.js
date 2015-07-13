@@ -29,6 +29,7 @@ Processor.prototype.process = function (queue) {
     }
 
     var root = this;
+
     // Process conversion queue
     for(var prop in this._queue.conversionQueue) {
         if(this._queue.conversionQueue.hasOwnProperty(prop)) {

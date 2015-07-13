@@ -1,11 +1,14 @@
 'use strict';
 
 module.exports = function (grunt) {
-    //require('time-grunt')(grunt);
+    require('time-grunt')(grunt);
 
     grunt.initConfig({
         clean: {
-            test: ['.tmp']
+            test: [
+                '.tmp',
+                'test/fixtures/images/.*.txt'
+            ]
         },
         graphics: {
             assets: {
@@ -25,7 +28,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [
         'graphics:assets',
         'nodeunit',
-        //'clean'
+        'clean'
     ]);
 
     grunt.registerTask('default', ['test', 'build-contrib']);

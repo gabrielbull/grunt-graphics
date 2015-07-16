@@ -98,5 +98,42 @@ GraphicsMagick.prototype.convertPsdToJpg = function (src, dest, callback) {
     });
 };
 
+/**
+ * @param {String} src
+ * @param {String} dest
+ * @param {Function} callback
+ */
+GraphicsMagick.prototype.convertPsdToPng = function (src, dest, callback) {
+    var grunt = this._grunt;
+
+    tmp.tmpName(function _tempNameGenerated(err, tmpfile) {
+        if (err) {
+            throw err;
+        }
+
+        var dir = path.dirname(tmpfile);
+        if (!fs.existsSync(dir)){
+            mkdirp.sync(dir);
+        }
+
+        dir = path.dirname(dest);
+        if (!fs.existsSync(dir)){
+            mkdirp.sync(dir);
+        }
+
+        tmpfile = tmpfile + ".png";
+
+        gm(src)
+            .write(tmpfile, function (err) {
+                if (err) {
+                    grunt.fail.warn('unknown error GraphicsMagick.prototype.convertPsdToPng');
+                    throw err;
+                }
+                fs.renameSync(tmpfile, dest);
+                callback();
+            });
+    });
+};
+
 /* global module:false */
 module.exports = GraphicsMagick;

@@ -55,26 +55,32 @@ ProcessingQueue.prototype.parseItemCollection = function (itemCollection) {
  * @returns {Object}
  */
 ProcessingQueue.prototype.generateQueues = function (itemCollection) {
-    var itemsScheduledForConversion = {};
-    var remainingItems = [];
+    var conversionQueue = {};
+    var itemQueue = [];
     var conversion;
     var item;
     for (var i = 0, len = itemCollection.length; i < len; ++i) {
         item = itemCollection[i];
         conversion = item.conversion();
         if (conversion && item.validator().isSrcNewer()) {
-            if (typeof itemsScheduledForConversion[item.src()] === 'undefined') {
-                itemsScheduledForConversion[item.src()] = [];
+            if (typeof conversionQueue[item.src()] === 'undefined') {
+                conversionQueue[item.src()] = item;
             }
-            itemsScheduledForConversion[item.src()].push(item);
-        } else {
-            remainingItems.push(item);
+        }
+        itemQueue.push(item);
+    }
+
+    var conversionQueueArray = [];
+    for(var prop in conversionQueue) {
+        if(conversionQueue.hasOwnProperty(prop)) {
+            conversionQueueArray.push(conversionQueue[prop]);
         }
     }
 
+
     return {
-        conversionQueue: itemsScheduledForConversion,
-        itemQueue: remainingItems
+        conversionQueue: conversionQueueArray,
+        itemQueue: itemQueue
     };
 };
 

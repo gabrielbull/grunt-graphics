@@ -8,7 +8,7 @@ module.exports = function (grunt) {
             test: [
                 '.tmp',
                 '.cache',
-                'test/fixtures/images/.*.txt'
+                'test/fixtures/images/.*.json'
             ]
         },
         graphics: {

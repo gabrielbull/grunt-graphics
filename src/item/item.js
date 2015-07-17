@@ -151,13 +151,13 @@ Item.prototype.setConvertedSrc = function (convertedSrc) {
 };
 
 /**
- * @method setConvertedSrc
+ * @method stateFile
  * @return {String}
  */
-Item.prototype.timestampFile = function () {
+Item.prototype.stateFile = function () {
     return path.join(
         path.dirname(this.src()),
-        "." + path.basename(this.src()) + ".txt"
+        "." + path.basename(this.src()) + ".json"
     );
 };
 

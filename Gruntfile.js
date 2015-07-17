@@ -7,6 +7,7 @@ module.exports = function (grunt) {
         clean: {
             test: [
                 '.tmp',
+                '.cache',
                 'test/fixtures/images/.*.txt'
             ]
         },

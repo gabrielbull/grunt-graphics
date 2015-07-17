@@ -6,19 +6,19 @@ var ConverionController = require('../conversion/conversion-controller');
 var GimpDetector = require('../gimp/gimp-detector');
 var GraphicsMagick = require('../graphicsmagick/graphicsmagick');
 var ImageMagick = require('../imagemagick/imagemagick');
+var ItemState = require('../item/item-state');
 
 /**
  * @class ConversionProcessor
  * @constructor
  */
-var ConversionProcessor = function (task, process, grunt, cache) {
-    this._cache = cache;
+var ConversionProcessor = function (task, process, grunt) {
     this._grunt = grunt;
     this._process = process;
-    this._gimp = new GimpDetector(this._process, this._cache, this._grunt).createGimp();
-    this._imageMagick = new ImageMagick(this._cache, this._grunt);
-    this._graphicsMagick = new GraphicsMagick(this._cache, this._grunt);
-    this._conversionController = new ConverionController(this._grunt, this._cache, this._gimp, this._imageMagick, this._graphicsMagick);
+    this._gimp = new GimpDetector(this._process, this._grunt).createGimp();
+    this._imageMagick = new ImageMagick(this._grunt);
+    this._graphicsMagick = new GraphicsMagick(this._grunt);
+    this._conversionController = new ConverionController(this._grunt, this._gimp, this._imageMagick, this._graphicsMagick);
     this._processingTaskCount = 0;
     this._maxAsync = 3;
 };
@@ -64,9 +64,8 @@ ConversionProcessor.prototype.onConversion = function () {
 };
 
 ConversionProcessor.prototype.processConversion = function (conversion, callback) {
-    var cache = this._cache;
     this._conversionController.convert(conversion, function () {
-        cache.updateFileTimestamp(conversion);
+        new ItemState().updateTimestamp(conversion);
         if (typeof callback !== 'undefined') {
             callback();
         }

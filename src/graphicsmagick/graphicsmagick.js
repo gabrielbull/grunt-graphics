@@ -8,12 +8,10 @@ var mkdirp = require("mkdirp");
 
 /**
  * @class GraphicsMagick
- * @param {Cache} cache
  * @param {Object} grunt
  * @constructor
  */
-var GraphicsMagick = function (cache, grunt) {
-    this._cache = cache;
+var GraphicsMagick = function (grunt) {
     this._grunt = grunt;
 };
 

@@ -6,13 +6,11 @@ var Gimp = require('./gimp');
 /**
  * @class GimpDetector
  * @param {Object} process
- * @param {Cache} cache
  * @param {Object} grunt
  * @constructor
  */
-var GimpDetector = function (process, cache, grunt) {
+var GimpDetector = function (process, grunt) {
     this._process = process;
-    this._cache = cache;
     this._grunt = grunt;
     this._darwinBin = [
         '/opt/homebrew-cask/Caskroom/lisanet-gimp/2.8.14p1/Gimp.app/Contents/MacOS/gimp-2.8',
@@ -26,7 +24,7 @@ var GimpDetector = function (process, cache, grunt) {
  * @return {Gimp}
  */
 GimpDetector.prototype.createGimp = function () {
-    return new Gimp(this.detectBin(), this._cache, this._grunt);
+    return new Gimp(this.detectBin(), this._grunt);
 };
 
 /**

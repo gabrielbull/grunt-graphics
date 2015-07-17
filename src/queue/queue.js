@@ -8,9 +8,8 @@ var Item = require('../item/item');
  * @class ProcessingQueue
  * @constructor
  */
-var ProcessingQueue = function (process, cache) {
+var ProcessingQueue = function (process) {
     this._process = process;
-    this._cache = cache;
 };
 
 /**
@@ -31,7 +30,6 @@ ProcessingQueue.prototype.parseConfig = function (config) {
     var itemCollection = new ConfigParser(this._process.cwd(), this._process.env).parse(configCollection);
     for (var i = 0, len = itemCollection.length; i < len; ++i) {
         itemCollection[i] = new Item(itemCollection[i]);
-        itemCollection[i].validator().setCache(this._cache);
     }
     return itemCollection;
 };
@@ -59,10 +57,12 @@ ProcessingQueue.prototype.generateQueues = function (itemCollection) {
     var itemQueue = [];
     var conversion;
     var item;
+
     for (var i = 0, len = itemCollection.length; i < len; ++i) {
         item = itemCollection[i];
         conversion = item.conversion();
-        if (conversion && item.validator().isSrcNewer()) {
+
+        if (conversion && item.validator().isTimestampNewer()) {
             if (typeof conversionQueue[item.src()] === 'undefined') {
                 conversionQueue[item.src()] = item;
             }
@@ -76,7 +76,6 @@ ProcessingQueue.prototype.generateQueues = function (itemCollection) {
             conversionQueueArray.push(conversionQueue[prop]);
         }
     }
-
 
     return {
         conversionQueue: conversionQueueArray,

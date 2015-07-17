@@ -9,13 +9,11 @@ var mkdirp = require("mkdirp");
 /**
  * @class Gimp
  * @param {String} bin
- * @param {Cache} cache
  * @param {Object} grunt
  * @constructor
  */
-var Gimp = function (bin, cache, grunt) {
+var Gimp = function (bin, grunt) {
     this._bin = bin;
-    this._cache = cache;
     this._grunt = grunt;
 };
 

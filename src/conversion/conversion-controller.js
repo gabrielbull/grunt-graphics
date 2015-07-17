@@ -7,15 +7,13 @@ var mkdirp = require("mkdirp");
 /**
  * @class ConversionController
  * @param {Object} grunt
- * @param {Cache} cache
  * @param {Gimp} gimp
  * @param {ImageMagick} imageMagick
  * @param {GraphicsMagick} graphicsMagick
  * @constructor
  */
-var ConversionController = function (grunt, cache, gimp, imageMagick, graphicsMagick) {
+var ConversionController = function (grunt, gimp, imageMagick, graphicsMagick) {
     this._grunt = grunt;
-    this._cache = cache;
     this._gimp = gimp;
     this._imageMagick = imageMagick;
     this._graphicsMagick = graphicsMagick;
@@ -47,7 +45,7 @@ ConversionController.prototype.convert = function (item, callback) {
  * @return {String}
  */
 ConversionController.prototype.convertPsdToPng = function (item, callback) {
-    var convertedFile = path.join(this._cache.cacheDir(), item.convertedSrc());
+    var convertedFile = path.join(global._cacheDir, item.convertedSrc());
     var dir = path.dirname(convertedFile);
     if (fs.existsSync(convertedFile)) {
         fs.unlinkSync(convertedFile);
@@ -74,7 +72,7 @@ ConversionController.prototype.convertPsdToPng = function (item, callback) {
  * @return {String}
  */
 ConversionController.prototype.convertPsdToJpg= function (item, callback) {
-    var convertedFile = path.join(this._cache.cacheDir(), item.convertedSrc());
+    var convertedFile = path.join(global._cacheDir, item.convertedSrc());
     var dir = path.dirname(convertedFile);
     if (fs.existsSync(convertedFile)) {
         fs.unlinkSync(convertedFile);

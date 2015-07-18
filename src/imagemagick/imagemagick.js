@@ -114,14 +114,25 @@ ImageMagick.prototype.resize = function (item, callback) {
             src = item.src()
         }
 
-        im.resize({
-                srcPath: src,
-                dstPath: tmpfile,
-                quality: 0.8,
-                format: item.destFormat(),
-                width: (typeof item.options().width !== 'undefined' ? item.options().width : null),
-                height: (typeof item.options().height !== 'undefined' ? item.options().height : null)
-            },
+        var options = {
+            srcPath: src,
+            dstPath: tmpfile,
+            format: item.destFormat()
+        };
+
+        if (typeof item.options().width !== 'undefined') {
+            options.width = item.options().width;
+        }
+
+        if (typeof item.options().height !== 'undefined') {
+            options.height = item.options().height;
+        }
+
+        if (typeof item.options().quality !== 'undefined') {
+            options.quality = item.options().quality;
+        }
+
+        im.resize(options,
             function (err, stdout, stderr) {
                 if (err) {
                     console.log(err, stdout, stderr);

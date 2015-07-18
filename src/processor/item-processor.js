@@ -66,7 +66,7 @@ ItemProcessor.prototype.processItem = function (item, callback) {
     if (item.convertedSrc()) {
         item.setConvertedSrc(path.join(global._cacheDir, item.convertedSrc()));
     }
-    this._graphicsMagick.resize(item, function () {
+    this._imageMagick.resize(item, function () {
         new ItemState().updateItemConfig(item);
         grunt.log.writeln('Created ' + path.basename(item.dest()));
         if (typeof callback !== 'undefined') {

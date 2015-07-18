@@ -39,8 +39,8 @@ Item.prototype.conversion = function () {
         return this._conversion;
     }
 
-    var src = this._src.replace(/.*\.([^\.]+)$/, '$1').toLowerCase();
-    var dest = this._dest.replace(/.*\.([^\.]+)$/, '$1').toLowerCase();
+    var src = this.srcFormat();
+    var dest = this.destFormat();
 
     if (src === dest) {
         return this._conversion = null;
@@ -89,7 +89,13 @@ Item.prototype.src = function () {
 };
 
 /**
- * @method src
+ * @return {String}
+ */
+Item.prototype.srcFormat = function () {
+    return this._src.replace(/.*\.([^\.]+)$/, '$1').toLowerCase();
+};
+
+/**
  * @param {String} src
  * @return {Item}
  */
@@ -99,11 +105,17 @@ Item.prototype.setSrc = function (src) {
 };
 
 /**
- * @method dest
  * @return {String}
  */
 Item.prototype.dest = function () {
     return this._dest;
+};
+
+/**
+ * @return {String}
+ */
+Item.prototype.destFormat = function () {
+    return this._dest.replace(/.*\.([^\.]+)$/, '$1').toLowerCase();
 };
 
 /**

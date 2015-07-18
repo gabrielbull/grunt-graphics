@@ -27,6 +27,8 @@ GraphicsMagick.prototype.resize = function (item, callback) {
             throw err;
         }
 
+        tmpfile = tmpfile + "." + item.destFormat();
+
         var dir = path.dirname(tmpfile);
         if (!fs.existsSync(dir)){
             mkdirp.sync(dir);
